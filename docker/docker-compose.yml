@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  escm-mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: escm_user
+      MYSQL_DATABASE: escm
+    ports:
+      - "3306:3306"
