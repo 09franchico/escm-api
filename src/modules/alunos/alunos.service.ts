@@ -5,7 +5,6 @@ import { Alunos } from './entity/alunos.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { CustomError } from 'src/infra/CustomError';
-import { error } from 'console';
 import { errorMessage } from 'src/infra/error/error-messagem';
 
 
@@ -45,7 +44,7 @@ export class AlunosService {
     async finById(id: number) {
         const verificarAluno = await this.alunosRepository.findOne({where:{id:id}})
         if(!verificarAluno){
-            throw new CustomError(404, "General", errorMessage.msg ,['Id nao existe'],)
+            throw new CustomError(404, "General", errorMessage.ERROR1,[`${id} não existe.`],)
         }
         const aluno = await this.alunosRepository.findOne({
             where: {
@@ -70,13 +69,13 @@ export class AlunosService {
             }
         )
         if (!aluno) {
-            throw new CustomError(404, "General", `Registro com ${id} não existe.`)
+            throw new CustomError(404, "General", errorMessage.ERROR1,[`${id} não existe.`])
         }
 
         const alunoUpdate = await this.alunosRepository.update(id, data)
 
         if (!alunoUpdate) {
-            throw new CustomError(400, "General", `Error ao realizar update`)
+            throw new CustomError(400, "General", errorMessage.ERROR2)
         }
 
         return await this.alunosRepository.findOne(
