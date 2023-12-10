@@ -5,6 +5,8 @@ import { Alunos } from './entity/alunos.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { CustomError } from 'src/infra/CustomError';
+import { error } from 'console';
+import { errorMessage } from 'src/infra/error/error-messagem';
 
 
 @Injectable()
@@ -41,6 +43,10 @@ export class AlunosService {
      * @returns 
      */
     async finById(id: number) {
+        const verificarAluno = await this.alunosRepository.findOne({where:{id:id}})
+        if(!verificarAluno){
+            throw new CustomError(404, "General", errorMessage.msg ,['Id nao existe'],)
+        }
         const aluno = await this.alunosRepository.findOne({
             where: {
                 id: id

@@ -21,7 +21,9 @@
     "typeorm:ts":"typeorm-ts-node-esm",
     "migration:create":"npm run typeorm:ts migration:create -- ./src/typeorm/migrations/Migrate",
     "migration:run":"npm run typeorm:ts migration:run -- -d ./src/typeorm/data-source.ts",
-    "migration:down":"npm run typeorm:ts migration:revert -- -d ./src/typeorm/data-source.ts"
+    "migration:down":"npm run typeorm:ts migration:revert -- -d ./src/typeorm/data-source.ts",
+    "docker:bd":"docker-compose -f ./docker/docker-compose.yml up -d",
+    "docker:build":"docker-compose up -d"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
