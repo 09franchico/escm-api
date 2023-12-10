@@ -1,12 +1,17 @@
 version: "3"
 
 services:
-  escm-mysql:
-    image: mysql
-    restart: always
+  escm-mysql: #Nome da aplicação
+    image: mysql #imagem que vai ser baixada
+    restart: always #Restart ao cair o banco
+    container_name: mysql-escm #Nome do container que vai ser criado
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USERNAME: escm_user
       MYSQL_DATABASE: escm
     ports:
       - "3306:3306"
+    volumes:
+      - ./escm:/var/lib/mysql
+
+

@@ -2,6 +2,7 @@
 /dist
 /node_modules
 
+/docker/escm
 # Logs
 logs
 *.log
