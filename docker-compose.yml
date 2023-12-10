@@ -1,12 +1,37 @@
 version: '3'
 
 services:
+  escm-mysql: #Nome da aplicação
+    image: mysql #imagem que vai ser baixada
+    restart: always #Restart ao cair o banco
+    container_name: mysql-escm #Nome do container que vai ser criado
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: escm_user
+      MYSQL_DATABASE: escm
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/escm:/var/lib/mysql
+    networks:
+      - backend
+
+
   escm-api:
-    build: .
+    depends_on:
+      - escm-mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: 'escm-api'
     env_file:
     - .env
     ports:
-    - '5000:5000'
-    
-    
+    - '5000:3000'
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    driver: bridge

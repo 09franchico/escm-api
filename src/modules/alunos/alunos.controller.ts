@@ -10,7 +10,9 @@ export class AlunosController {
 
     @Get()
     buscarAlunos(){
+        console.log("TESTE ENDPOINT")
         return this.alunoService.findAll()
+
     }
 
     @Post()
