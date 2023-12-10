@@ -1,18 +1,19 @@
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { environments } from 'src/environments/environments';
 import { Alunos } from 'src/modules/alunos/entity/alunos.entity';
+import * as dotenv from 'dotenv'
 
+dotenv.config()
 
 const CONFIG_DATABASE_MYSQL : TypeOrmModuleOptions = {
     type:'mysql',
-    host:environments.DB_HOST,
-    port:environments.DB_PORT,
-    username:environments.DB_USERNAME,
-    password:environments.DB_PASSWORD,
-    database:environments.DB_DATABASE,
+    host:process.env.DB_HOST,
+    port:Number(process.env.DB_PORT),
+    username:process.env.DB_USERNAME,
+    password:process.env.DB_PASSWORD,
+    database:process.env.DB_DATABASE,
     entities:[Alunos],
-    synchronize:true
+    synchronize: false//process.env.ENV === "development"
 }
 
 @Module({

@@ -13,4 +13,11 @@ export class Alunos {
 
   @Column()
   idade: number;
+
+  @Column()
+  createAt?: Date;
+
+  @Column()
+  updateAt?: Date;
+
 }
