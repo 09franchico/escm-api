@@ -1,3 +1,4 @@
+import { ErrorValidation } from './../../infra/types';
 import { updateAlunoDTO } from './dto/update-alunoDTO';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
@@ -31,7 +32,16 @@ export class AlunosService {
      * @returns 
      */
     async createAluno(dados: createAlunosDTO) {
+        const errorsValidation: ErrorValidation[] = [];
+
         const novoAluno = this.alunosRepository.create(dados);
+
+        const validacaoEmail = await this.alunosRepository.findOne({where:{email:dados.email}})
+
+        if(validacaoEmail){
+            errorsValidation.push({ error:`${dados.email} já existe.` });
+            throw new CustomError(404, "General", "Email já existe",null,null,errorsValidation)
+        }
         await this.alunosRepository.save(novoAluno);
         return novoAluno;
     }

@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AlunosController } from './alunos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Alunos } from './entity/alunos.entity';
 import { AlunosService } from './alunos.service';
+import { AlunoCheckMiddleware } from 'src/middleware/validacao/aluno-check-middleware';
 
 @Module({
   imports:[
@@ -11,4 +12,12 @@ import { AlunosService } from './alunos.service';
   controllers: [AlunosController],
   providers: [AlunosService]
 })
-export class AlunosModule {}
+export class AlunosModule implements NestModule {
+
+  configure(consumer: MiddlewareConsumer) {
+     consumer.apply(AlunoCheckMiddleware).forRoutes({
+      path:'/alunos',
+      method:RequestMethod.POST
+     })
+  }
+}

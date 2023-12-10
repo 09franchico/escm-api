@@ -15,9 +15,9 @@ export class Alunos {
   idade: number;
 
   @Column()
-  createAt?: Date;
+  createAt: Date;
 
   @Column()
-  updateAt?: Date;
+  updateAt: Date;
 
 }
