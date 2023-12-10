@@ -2,6 +2,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { Alunos } from 'src/modules/alunos/entity/alunos.entity';
 import * as dotenv from 'dotenv'
+import { Usuario } from 'src/modules/usuario/entity/usuario.entity';
 
 dotenv.config()
 
@@ -12,7 +13,7 @@ const CONFIG_DATABASE_MYSQL : TypeOrmModuleOptions = {
     username:process.env.DB_USERNAME,
     password:process.env.DB_PASSWORD,
     database:process.env.DB_DATABASE,
-    entities:[Alunos],
+    entities:[Alunos,Usuario],
     synchronize: false
 }
 
