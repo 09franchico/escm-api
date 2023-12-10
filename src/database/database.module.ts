@@ -13,7 +13,7 @@ const CONFIG_DATABASE_MYSQL : TypeOrmModuleOptions = {
     password:process.env.DB_PASSWORD,
     database:process.env.DB_DATABASE,
     entities:[Alunos],
-    synchronize: false//process.env.ENV === "development"
+    synchronize: false
 }
 
 @Module({

@@ -32,15 +32,4 @@ export class CustomError extends HttpException {
     this.errorRaw = errorRaw;
     this.errorsValidation = errorsValidation;
   }
-
-  // get JSON(): ErrorResponse {
-  //   return {
-  //     errorType: this.errorType,
-  //     errorMessage: this.message,
-  //     errors: this.errors,
-  //     errorRaw: this.errorRaw,
-  //     errorsValidation: this.errorsValidation,
-  //     stack: this.stack || '', // A propriedade 'stack' pode ser 'null' em algumas situações
-  //   };
-  // }
 }
