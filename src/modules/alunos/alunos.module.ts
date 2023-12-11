@@ -4,13 +4,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Alunos } from './entity/alunos.entity';
 import { AlunosService } from './alunos.service';
 import { AlunoCheckMiddleware } from 'src/middleware/validacao/aluno-check-middleware';
+import { AlunoRepository } from './repository/alunos.repository';
 
 @Module({
   imports:[
     TypeOrmModule.forFeature([Alunos])
   ],
   controllers: [AlunosController],
-  providers: [AlunosService]
+  providers: [AlunosService,AlunoRepository]
 })
 export class AlunosModule implements NestModule {
 

@@ -1,20 +1,17 @@
 import { ErrorValidation } from './../../infra/types';
 import { updateAlunoDTO } from './dto/update-alunoDTO';
-import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { Alunos } from './entity/alunos.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { CustomError } from 'src/infra/CustomError';
 import { errorMessage } from 'src/infra/error/error-messagem';
+import { AlunoRepository } from './repository/alunos.repository';
 
 
 @Injectable()
 export class AlunosService {
 
     constructor(
-        @InjectRepository(Alunos)
-        private alunosRepository: Repository<Alunos>
+        private alunoRepository:AlunoRepository
     ) { }
 
 
@@ -23,7 +20,8 @@ export class AlunosService {
      * @returns 
      */
     async findAll() {
-        return await this.alunosRepository.find()
+        this.alunoRepository.findAlunosByEmailAndIdade('francisco@gmail.com',26)
+        return await this.alunoRepository.find()
     }
 
     /**
@@ -33,16 +31,16 @@ export class AlunosService {
      */
     async createAluno(dados: createAlunosDTO) {
         const errorsValidation: ErrorValidation[] = [];
-
-        const novoAluno = this.alunosRepository.create(dados);
-
-        const validacaoEmail = await this.alunosRepository.findOne({where:{email:dados.email}})
-
+        const validacaoEmail = await this.alunoRepository.findOne({where:{email:dados.email}})
+        
         if(validacaoEmail){
             errorsValidation.push({ error:`${dados.email} já existe.` });
             throw new CustomError(404, "General", "Email já existe",null,null,errorsValidation)
         }
-        await this.alunosRepository.save(novoAluno);
+
+        const novoAluno = this.alunoRepository.create(dados);
+        await this.alunoRepository.save(novoAluno);
+
         return novoAluno;
     }
 
@@ -52,11 +50,11 @@ export class AlunosService {
      * @returns 
      */
     async finById(id: number) {
-        const verificarAluno = await this.alunosRepository.findOne({where:{id:id}})
+        const verificarAluno = await this.alunoRepository.findOne({where:{id:id}})
         if(!verificarAluno){
             throw new CustomError(404, "General", errorMessage.ERROR1,[`${id} não existe.`],)
         }
-        const aluno = await this.alunosRepository.findOne({
+        const aluno = await this.alunoRepository.findOne({
             where: {
                 id: id
             }
@@ -72,7 +70,7 @@ export class AlunosService {
      */
     async updateAluno(data: updateAlunoDTO, id: number) {
 
-        const aluno = await this.alunosRepository.findOne(
+        const aluno = await this.alunoRepository.findOne(
             {
                 where:
                     { id: id }
@@ -82,13 +80,13 @@ export class AlunosService {
             throw new CustomError(404, "General", errorMessage.ERROR1,[`${id} não existe.`])
         }
 
-        const alunoUpdate = await this.alunosRepository.update(id, data)
+        const alunoUpdate = await this.alunoRepository.update(id, data)
 
         if (!alunoUpdate) {
             throw new CustomError(400, "General", errorMessage.ERROR2)
         }
 
-        return await this.alunosRepository.findOne(
+        return await this.alunoRepository.findOne(
             {
                 where:
                     { id: id }

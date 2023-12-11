@@ -8,7 +8,7 @@ export class AlunoCheckMiddleware implements NestMiddleware {
 
     use(req: Request, res: Response, next: NextFunction) {
 
-        console.log(req.body)
+        //console.log(req.body)
         next()
     }
 
