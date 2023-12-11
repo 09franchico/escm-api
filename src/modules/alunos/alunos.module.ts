@@ -11,7 +11,8 @@ import { AlunoRepository } from './repository/alunos.repository';
     TypeOrmModule.forFeature([Alunos])
   ],
   controllers: [AlunosController],
-  providers: [AlunosService,AlunoRepository]
+  providers: [AlunosService,AlunoRepository],
+  exports:[AlunoRepository]
 })
 export class AlunosModule implements NestModule {
 
