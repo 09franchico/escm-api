@@ -4,6 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 
 import { CustomError } from 'src/infra/CustomError';
 import { UsuarioRepository } from 'src/modules/usuario/repository/usuario.repository';
+import { authPayload } from './dto/auth-payload';
 
 @Injectable()
 export class AuthService {
@@ -65,6 +66,18 @@ export class AuthService {
 
         return this.createToken(user)
 
+    }
+    
+    async account(payload:authPayload){
+        const usuario = this.usuarioRepository.findOne({
+            where:{
+                id:payload.sub
+            }
+        })
+
+        ;(await usuario).senha = null;
+        
+        return usuario;
     }
 
 }

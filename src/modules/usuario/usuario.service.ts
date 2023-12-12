@@ -5,11 +5,19 @@ import { UsuarioRepository } from './repository/usuario.repository';
 export class UsuarioService {
 
     constructor(
-        private usuarioRepositiry:UsuarioRepository
+        private usuarioRepository:UsuarioRepository
         ){}
 
         
     async findAll(){
-        return await this.usuarioRepositiry.find()
+        return await this.usuarioRepository.find()
+    }
+
+    async findUsuarioById(id:number){
+        return this.usuarioRepository.findOne({
+            where:{
+                id
+            }
+        })
     }
 }

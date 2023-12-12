@@ -33,6 +33,10 @@ export class Migrate1702232294288 implements MigrationInterface {
                 type:'int',
             },
             {
+                name:'role',
+                type:'int',
+            },
+            {
                 name:'createAt',
                 type:'timestamp',
                 default:'CURRENT_TIMESTAMP()'

@@ -19,6 +19,9 @@ export class Usuario {
     ativo:number
 
     @Column()
+    role:number
+
+    @Column()
     createAt:Date
 
     @Column()
