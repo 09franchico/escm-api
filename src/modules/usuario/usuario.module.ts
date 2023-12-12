@@ -13,6 +13,6 @@ import { AlunosModule } from '../alunos/alunos.module';
   ],
   controllers: [UsuarioController],
   providers: [UsuarioService,UsuarioRepository],
-  exports:[UsuarioRepository]
+  exports:[UsuarioRepository,UsuarioService]
 })
 export class UsuarioModule {}

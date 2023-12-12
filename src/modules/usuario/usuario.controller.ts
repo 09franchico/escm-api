@@ -1,6 +1,5 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
-import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -9,7 +8,7 @@ export class UsuarioController {
         private usuarioService:UsuarioService
         ){}
 
-    @UseGuards(AuthGuard)
+
     @Get()
     findAll(){
        return this.usuarioService.findAll()
