@@ -11,7 +11,7 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() {email, senha}:AuthLoginDTO){
-       return this.authService.login(email,senha)
+       return this.authService.authLogin(email,senha)
     }
 
     @UseGuards(AuthGuard)

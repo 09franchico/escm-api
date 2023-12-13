@@ -11,7 +11,7 @@ import { AuthModule } from 'src/auth/auth.module';
 @Module({
   imports:[
     TypeOrmModule.forFeature([Usuario]),
-    AlunosModule,
+    forwardRef(()=>AlunosModule),
     forwardRef(()=>AuthModule) //resolver dependecia circular [UsuarioModule e AuthModule]
   ],
   controllers: [UsuarioController],

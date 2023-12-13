@@ -14,6 +14,8 @@ export class RoleGuard implements CanActivate{
 
         const requiredRoles =  this.reflector.getAllAndOverride<Role[]>("roles",[context.getHandler(),context.getClass()])
 
+        console.log(requiredRoles)
+
         // Se não tiver nenhuma regra liberada a ROTA
         if(!requiredRoles){
             return true
@@ -22,9 +24,11 @@ export class RoleGuard implements CanActivate{
 
         const {usuario} = context.switchToHttp().getRequest();
 
-        console.log(requiredRoles,usuario)
+        const rolesFilted = requiredRoles.filter(role=>role === usuario.role)
 
-        return true
+
+        return rolesFilted.length > 0
+
     }
 
 }

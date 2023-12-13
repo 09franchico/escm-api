@@ -1,9 +1,9 @@
+import { UsuarioService } from 'src/modules/usuario/usuario.service';
 import { Usuario } from 'src/modules/usuario/entity/usuario.entity';
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
 import { CustomError } from 'src/infra/CustomError';
-import { UsuarioRepository } from 'src/modules/usuario/repository/usuario.repository';
 import { authPayload } from './dto/auth-payload';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class AuthService {
 
     constructor(
         private readonly jwtService: JwtService,
-        private usuarioRepository:UsuarioRepository) {}
+        private UsuarioService:UsuarioService) {}
 
 
     /**
@@ -52,31 +52,14 @@ export class AuthService {
     }
 
     
-    async login(email:string, senha:string){
-        const user = await this.usuarioRepository.findOne({
-            where:{
-                email,
-                senha
-            }
-        })
-
-        if(!user){
-            throw new CustomError(401, "General", "Usuario não encontrado")
-        }
-
+    async authLogin(email:string, senha:string){
+        const user = await this.UsuarioService.login(email,senha);
         return this.createToken(user)
 
     }
     
-    async account(payload:authPayload){
-        const usuario = this.usuarioRepository.findOne({
-            where:{
-                id:payload.sub
-            }
-        })
-
-        ;(await usuario).senha = null;
-        
+    async authAccount(payload:authPayload){
+        const usuario = this.UsuarioService.account(payload);        
         return usuario;
     }
 

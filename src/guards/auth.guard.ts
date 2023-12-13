@@ -14,11 +14,11 @@ export class AuthGuard implements CanActivate{
     async canActivate(context: ExecutionContext) {
 
         const request = context.switchToHttp().getRequest();
-
         const {authorization} = request.headers
 
         try {
 
+            //Pega o payload do token
             const dado:authPayload = this.authService.checkToken((authorization ?? '').split(' ')[1])
 
             request.tokenPayload = dado;
