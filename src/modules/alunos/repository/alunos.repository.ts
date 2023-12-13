@@ -15,12 +15,11 @@ export class AlunoRepository extends Repository<Alunos>
      * @param email 
      * @returns 
      */
-    async findAlunosByEmailAndIdade(email:string,idade:number)
+    async findAlunosByEmail(email:string)
     {
-        const dado = await this.find({
+        const dado = await this.findOne({
             where:{
-                email,
-                idade
+                email
             }
         })
         return dado;

@@ -20,7 +20,6 @@ export class AlunosService {
      * @returns 
      */
     async findAll() {
-        this.alunoRepository.findAlunosByEmailAndIdade('francisco@gmail.com',26)
         return await this.alunoRepository.find()
     }
 
@@ -30,17 +29,8 @@ export class AlunosService {
      * @returns 
      */
     async createAluno(dados: createAlunosDTO) {
-        const errorsValidation: ErrorValidation[] = [];
-        const validacaoEmail = await this.alunoRepository.findOne({where:{email:dados.email}})
-        
-        if(validacaoEmail){
-            errorsValidation.push({ error:`${dados.email} já existe.` });
-            throw new CustomError(404, "General", "Email já existe",null,null,errorsValidation)
-        }
-
         const novoAluno = this.alunoRepository.create(dados);
         await this.alunoRepository.save(novoAluno);
-
         return novoAluno;
     }
 
@@ -93,5 +83,9 @@ export class AlunosService {
             }
         )
 
+    }
+
+    async existeEmailAluno(email:string){
+        return this.alunoRepository.findAlunosByEmail(email);
     }
 }
