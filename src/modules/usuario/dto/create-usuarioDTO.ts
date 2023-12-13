@@ -3,4 +3,5 @@ export class createUsuarioDTO {
     email:string
     senha:string
     ativo:number
+    role:number
 }
