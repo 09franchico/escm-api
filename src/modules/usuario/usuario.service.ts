@@ -12,12 +12,20 @@ export class UsuarioService {
         private usuarioRepository:UsuarioRepository
         ){}
 
-        
+    /**
+     * Busca todos os usuarios
+     * @returns 
+     */
     async findAll(){
         return await this.usuarioRepository.find()
     }
 
 
+    /**
+     * criar um usuario
+     * @param usuario 
+     * @returns 
+     */
     async createUsuario(usuario:createUsuarioDTO){
 
         const emailExiste = await this.usuarioRepository.findOne({where:{email:usuario.email}})
@@ -36,6 +44,11 @@ export class UsuarioService {
 
     }
 
+    /**
+     * Buscar o usuario pelo ID
+     * @param id 
+     * @returns 
+     */
     async findUsuarioById(id:number){
         return this.usuarioRepository.findOne({
             where:{
@@ -44,6 +57,12 @@ export class UsuarioService {
         })
     }
 
+    /**
+     * Buscar o usuario por meail e senha
+     * @param email 
+     * @param senha 
+     * @returns 
+     */
     async login(email:string, senha:string){
         const user = await this.usuarioRepository.findOne({
             where:{
@@ -65,6 +84,12 @@ export class UsuarioService {
 
     }
 
+
+    /**
+     * Verifica a conta do usuario pelo payload JWT
+     * @param payload 
+     * @returns 
+     */
     async account(payload:authPayload){
         const usuario = this.usuarioRepository.findOne({
             where:{
