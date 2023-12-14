@@ -1,10 +1,12 @@
-import { ErrorValidation } from './../../infra/types';
+
 import { updateAlunoDTO } from './dto/update-alunoDTO';
 import { Injectable } from '@nestjs/common';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { CustomError } from 'src/infra/CustomError';
 import { errorMessage } from 'src/infra/error/error-messagem';
 import { AlunoRepository } from './repository/alunos.repository';
+import { Pagination,paginate } from 'nestjs-typeorm-paginate';
+import { Alunos } from './entity/alunos.entity';
 
 
 @Injectable()
@@ -19,8 +21,8 @@ export class AlunosService {
      * Buscar todos os alunos
      * @returns 
      */
-    async findAll() {
-        return await this.alunoRepository.find()
+    async findAll(page: number, limit: number):Promise<Pagination<Alunos>> {
+         return paginate<Alunos>(this.alunoRepository,{page,limit});
     }
 
     /**

@@ -14,13 +14,10 @@ export class RoleGuard implements CanActivate{
 
         const requiredRoles =  this.reflector.getAllAndOverride<Role[]>("roles",[context.getHandler(),context.getClass()])
 
-        console.log(requiredRoles)
-
         // Se não tiver nenhuma regra liberada a ROTA
         if(!requiredRoles){
             return true
         }
-
 
         const {usuario} = context.switchToHttp().getRequest();
 
