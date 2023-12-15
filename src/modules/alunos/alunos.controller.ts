@@ -1,4 +1,4 @@
-import { Controller,Get,Post,Body, Param, Put, UseGuards, Query, DefaultValuePipe, ParseIntPipe } from '@nestjs/common';
+import { Controller,Get,Post,Body, Param, Put, UseGuards, Query, DefaultValuePipe, ParseIntPipe, Delete } from '@nestjs/common';
 import { AlunosService } from './alunos.service';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { updateAlunoDTO } from './dto/update-alunoDTO';
@@ -39,5 +39,10 @@ export class AlunosController {
     data:updateAlunoDTO, 
     @Param('id') id:number){
         return this.alunoService.updateAluno(data,id)
+    }
+
+    @Delete('/:id')
+    deleteAlunoById(@Param('id') id:number){
+       return this.alunoService.delete(id)
     }
 }

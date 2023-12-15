@@ -87,6 +87,16 @@ export class AlunosService {
 
     }
 
+
+    async delete(id:number){
+       const aluno = await this.alunoRepository.findOne({where:{id}})
+       if(!aluno){
+         throw new CustomError(404,'General','Aluno não existe')
+       }
+       this.alunoRepository.delete(id)
+
+    }
+
     async existeEmailAluno(email:string){
         return this.alunoRepository.findAlunosByEmail(email);
     }
