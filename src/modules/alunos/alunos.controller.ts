@@ -20,8 +20,9 @@ export class AlunosController {
     @Get()
     buscarAlunos(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+        @Query('query') query,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10):Promise<Pagination<Alunos>>{
-        return this.alunoService.findAll(page,limit)
+        return this.alunoService.findAll(page,limit,query)
     }
 
     @Post()
