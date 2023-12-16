@@ -1,11 +1,11 @@
 
 import { updateAlunoDTO } from './dto/update-alunoDTO';
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { createAlunosDTO } from './dto/create-alunoDTO';
 import { CustomError } from 'src/infra/CustomError';
 import { errorMessage } from 'src/infra/error/error-messagem';
 import { AlunoRepository } from './repository/alunos.repository';
-import { Pagination,paginate } from 'nestjs-typeorm-paginate';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { Alunos } from './entity/alunos.entity';
 
 
@@ -18,17 +18,12 @@ export class AlunosService {
 
 
     /**
-     * Buscar todos os alunos
+     * Buscar todos os alunos / filtro
      * @returns 
      */
     async findAll(page: number, limit: number,query:string):Promise<Pagination<Alunos>> {
-        const queryBuild =  this.alunoRepository.createQueryBuilder('a');
-        queryBuild.orderBy('a.id','DESC')
-        queryBuild.where("  a.id Like  :q",{ q:`%${query}%`})
-        queryBuild.orWhere("a.nome   Like  :q",{ q:`%${query}%`})
-        queryBuild.orWhere("a.idade  Like  :q",{ q:`%${query}%`})
-        queryBuild.orWhere("a.email  Like  :q",{ q:`%${query}%`})
-         return paginate<Alunos>(queryBuild,{page,limit});
+        return this.alunoRepository.findFiltroAluno(page,limit,query);
+        
     }
 
     /**

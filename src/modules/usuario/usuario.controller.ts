@@ -7,7 +7,7 @@ import { RoleGuard } from 'src/guards/role.guard';
 import { createUsuarioDTO } from './dto/create-usuarioDTO';
 
 @UseGuards(AuthGuard,RoleGuard) //Autenticacao do token e validacao de permissão
-@Roles(Role.Admin)
+// @Roles(Role.Admin)
 @Controller('usuario')
 export class UsuarioController {
 

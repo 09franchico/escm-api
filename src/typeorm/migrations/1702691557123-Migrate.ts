@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm"
 
-export class Migrate1702183599052 implements MigrationInterface {
+export class Migrate1702691557123 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name:'alunos',
+            name:'responsavel',
             columns:[{
                 name:'id',
                 type:'int',
@@ -17,59 +17,21 @@ export class Migrate1702183599052 implements MigrationInterface {
                 name:'nome',
                 type:'varchar',
                 length:"200",
-                comment:'nome do aluno',
                 isNullable:true
             },
             {
                 name:'email',
                 type:'varchar',
                 length:'150',
-                isUnique: true,
-                comment:'email do aluno',
-                isNullable:true
+                isUnique: true
             },
             {
-                name:'idade',
-                type:'int',
-                comment:'idade do aluno',
-                isNullable:true
-            },
-            {
-                name:'sexo',
-                type:'varchar',
-                comment:'sexo [ M - F ] do aluno',
-                isNullable:true
-            },
-            {
-                name:'ativo',
-                type:'int',
-                comment:'Aluno 1 = ativo, 0 = desativado',
-                isNullable:true
-            },
-            {
-                name:'endereco',
-                type:'varchar',
-                comment:'Endereço do aluno',
-                isNullable:true
-            },
-            {
-                name:'bairro',
-                type:'varchar',
-                comment:'Bairro do aluno',
-                isNullable:true
-            },
-            {
-                name:'cidade',
+                name:'rg',
                 type:'varchar',
                 isNullable:true
             },
             {
-                name:'uf',
-                type:'varchar',
-                isNullable:true
-            },
-            {
-                name:'cep',
+                name:'cpf',
                 type:'varchar',
                 isNullable:true
             },
@@ -84,31 +46,44 @@ export class Migrate1702183599052 implements MigrationInterface {
                 isNullable:true
             },
             {
-                name:'autorizado_sair_com',
-                type:'varchar',
-                comment:'Reponsavel que deve ser liberado o aluno',
+                name:'data_nascimento',
+                type:'date',
+                isNullable:true
             },
             {
-                name:'responsavel_carne',
+                name:'sexo',
                 type:'varchar',
-                comment:'responsavel por pagar o carne'
+                isNullable:true
+            },
+            {
+                name:'ativo',
+                type:'int',
+                isNullable:true
+            },
+            {
+                name:'parentesco',
+                type:'varchar',
+                isNullable:true
             },
             {
                 name:'createAt',
                 type:'timestamp',
-                default:'CURRENT_TIMESTAMP()'
+                default:'CURRENT_TIMESTAMP()',
+                isNullable:true
             },
             {
                 name:'updateAt',
                 type:'timestamp',
-                default:'CURRENT_TIMESTAMP()'
+                default:'CURRENT_TIMESTAMP()',
+                isNullable:true
             }
         ]
         }))
+
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('alunos')
+        await queryRunner.dropTable('responsavel')
     }
 
 }
