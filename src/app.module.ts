@@ -4,6 +4,7 @@ import { DatabaseModule } from './database/database.module';
 import { AlunosModule } from './modules/alunos/alunos.module';
 import { UsuarioModule } from './modules/usuario/usuario.module';
 import { AuthModule } from './auth/auth.module';
+import { ResponsavelModule } from './modules/responsavel/responsavel.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { AuthModule } from './auth/auth.module';
     DatabaseModule,
     forwardRef(()=>AlunosModule),
     forwardRef(()=>AuthModule),
-    forwardRef(()=>UsuarioModule)
+    forwardRef(()=>UsuarioModule),
+    ResponsavelModule
   ],
   controllers: [],
   providers: [],

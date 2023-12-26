@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { Alunos } from 'src/modules/alunos/entity/alunos.entity';
 import * as dotenv from 'dotenv'
 import { Usuario } from 'src/modules/usuario/entity/usuario.entity';
+import { Responsavel } from 'src/modules/responsavel/entity/responsavel.entity';
 
 dotenv.config()
 
@@ -13,7 +14,7 @@ const CONFIG_DATABASE_MYSQL : TypeOrmModuleOptions = {
     username:process.env.DB_USERNAME,
     password:process.env.DB_PASSWORD,
     database:process.env.DB_DATABASE,
-    entities:[Alunos,Usuario],
+    entities:[Alunos,Usuario,Responsavel],
     synchronize: false
 }
 
