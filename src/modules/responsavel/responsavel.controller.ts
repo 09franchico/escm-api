@@ -14,17 +14,18 @@ import { ResponsavelService } from './responsavel.service';
 export class ResponsavelController {
 
 
-    constructor(private responsavelService:ResponsavelService){
+    constructor(
+        private responsavelService:ResponsavelService
+        ){}
 
-    }
-
+        
     @Get()
     buscarResponsavel(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
         @Query('query') query,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10):Promise<Pagination<Responsavel>>{
             return this.responsavelService.findAll(page,limit,query)
-            
+
     }
 
     @Post()
